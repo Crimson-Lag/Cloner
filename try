@@ -177,7 +177,7 @@ submit.MouseButton1Click:Connect(function()
 		task.spawn(function()
 			for i = 1, 100 do
 				barFill.Size = UDim2.new(i / 100, 0, 1, 0)
-				task.wait(0.05) -- 5 seconds total (0.05 * 100)
+				task.wait(0.20) -- 5 seconds total (0.20 * 100)
 			end
 			Spawner.SpawnPet(name, w, a)
 			submit.Text = "✅ Pet Cloned!"
