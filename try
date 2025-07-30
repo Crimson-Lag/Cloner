@@ -9,7 +9,7 @@ local Player = Players.LocalPlayer
 local PlayerGui = Player:WaitForChild("PlayerGui")
 
 -- Cleanup
-local GUI_NAME = "BenGrowHub"
+local GUI_NAME = "Kitsu"
 if PlayerGui:FindFirstChild(GUI_NAME) then
 	PlayerGui[GUI_NAME]:Destroy()
 end
@@ -35,7 +35,7 @@ title.Size = UDim2.new(1, 0, 0, 40)
 title.Position = UDim2.new(0, 0, 0, 0)
 title.BackgroundColor3 = Color3.fromRGB(50, 200, 70)
 title.Font = Enum.Font.GothamBold
-title.TextSize = 24
+title.TextSize = 15
 title.TextColor3 = Color3.fromRGB(255, 255, 255)
 title.Text = "INSTANT PET CLONER"
 title.TextScaled = true
@@ -166,15 +166,31 @@ footer.TextColor3 = Color3.fromRGB(220, 255, 220)
 footer.TextWrapped = true
 footer.Text = ""
 
--- Submit handler
+-- Submit handler with loading effect
 submit.MouseButton1Click:Connect(function()
 	local name = selectedPet
 	local w = tonumber(weight.Text)
 	local a = tonumber(age.Text)
 	if name and w and a then
-		Spawner.SpawnPet(name, w, a)
-		footer.Text = "✅ Spawned Pet: " .. name
+		submit.AutoButtonColor = false
+		submit.Text = "Cloning..."
+		task.spawn(function()
+			for i = 1, 100 do
+				loadingBarFill.Size = UDim2.new(i / 100, 0, 1, 0)
+				task.wait(0.01)
+			end
+			Spawner.SpawnPet(name, w, a)
+			footer.Text = "✅ Spawned Pet: " .. name
+			submit.Text = "CLONE PET"
+			submit.AutoButtonColor = true
+			task.wait(3)
+			footer.Text = ""
+			loadingBarFill.Size = UDim2.new(0, 0, 1, 0)
+		end)
 	else
 		footer.Text = "❌ Invalid input for pet."
+		task.delay(3, function()
+			footer.Text = ""
+		end)
 	end
 end)
