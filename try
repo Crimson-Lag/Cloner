@@ -26,6 +26,7 @@ mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
 mainFrame.BackgroundColor3 = Color3.fromRGB(120, 80, 50)
 mainFrame.Active = true
 mainFrame.Draggable = true
+mainFrame.ClipsDescendants = false
 Instance.new("UICorner", mainFrame).CornerRadius = UDim.new(0, 10)
 
 -- Title
@@ -34,10 +35,10 @@ title.Size = UDim2.new(1, 0, 0, 40)
 title.Position = UDim2.new(0, 0, 0, 0)
 title.BackgroundColor3 = Color3.fromRGB(50, 200, 70)
 title.Font = Enum.Font.GothamBold
-title.TextSize = 18
-title.TextScaled = false
+title.TextSize = 20 -- reduced font size
 title.TextColor3 = Color3.fromRGB(255, 255, 255)
 title.Text = "PET CLONER"
+title.TextScaled = true
 Instance.new("UICorner", title).CornerRadius = UDim.new(0, 0)
 
 -- Close button
@@ -110,8 +111,7 @@ weight.Size = UDim2.new(0.8, 0, 0, 30)
 weight.Position = UDim2.new(0.5, 0, 0, 90)
 weight.AnchorPoint = Vector2.new(0.5, 0)
 weight.BackgroundColor3 = Color3.fromRGB(100, 65, 40)
-weight.PlaceholderText = "Enter Pet Weight"
-weight.Text = ""
+weight.PlaceholderText = "Enter Weight"
 weight.Font = Enum.Font.Gotham
 weight.TextSize = 14
 weight.TextColor3 = Color3.new(1, 1, 1)
@@ -123,8 +123,7 @@ age.Size = UDim2.new(0.8, 0, 0, 30)
 age.Position = UDim2.new(0.5, 0, 0, 130)
 age.AnchorPoint = Vector2.new(0.5, 0)
 age.BackgroundColor3 = Color3.fromRGB(100, 65, 40)
-age.PlaceholderText = "Enter Pet Age"
-age.Text = ""
+age.PlaceholderText = "Enter Age"
 age.Font = Enum.Font.Gotham
 age.TextSize = 14
 age.TextColor3 = Color3.new(1, 1, 1)
@@ -142,10 +141,10 @@ submit.TextSize = 15
 submit.TextColor3 = Color3.new(1, 1, 1)
 Instance.new("UICorner", submit).CornerRadius = UDim.new(0, 6)
 
--- Loading bar background
+-- Loading Bar
 local barBack = Instance.new("Frame", mainFrame)
 barBack.Size = UDim2.new(0.8, 0, 0, 8)
-barBack.Position = UDim2.new(0.5, 0, 1, -55)
+barBack.Position = UDim2.new(0.5, 0, 1, -50) -- moved up a bit
 barBack.AnchorPoint = Vector2.new(0.5, 1)
 barBack.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
 Instance.new("UICorner", barBack).CornerRadius = UDim.new(0, 6)
@@ -155,7 +154,7 @@ barFill.Size = UDim2.new(0, 0, 1, 0)
 barFill.BackgroundColor3 = Color3.fromRGB(0, 255, 130)
 Instance.new("UICorner", barFill).CornerRadius = UDim.new(0, 6)
 
--- Footer label for status
+-- Footer loading text
 local footer = Instance.new("TextLabel", mainFrame)
 footer.Size = UDim2.new(0.9, 0, 0, 30)
 footer.Position = UDim2.new(0.5, 0, 1, -80)
@@ -167,18 +166,19 @@ footer.TextColor3 = Color3.fromRGB(220, 255, 220)
 footer.TextWrapped = true
 footer.Text = ""
 
--- "Made by Kitsu" subtitle
+-- Made by Kitsu
 local credit = Instance.new("TextLabel", mainFrame)
 credit.Size = UDim2.new(1, 0, 0, 20)
-credit.Position = UDim2.new(0.5, 0, 1, -10)
+credit.Position = UDim2.new(0.5, 0, 1, -20)
 credit.AnchorPoint = Vector2.new(0.5, 1)
 credit.BackgroundTransparency = 1
 credit.Font = Enum.Font.Gotham
 credit.TextSize = 13
-credit.TextColor3 = Color3.fromRGB(230, 230, 230)
+credit.TextColor3 = Color3.fromRGB(210, 210, 210)
 credit.Text = "Made by Kitsu"
+credit.TextWrapped = true
 
--- Submit handler with animation
+-- Submit handler
 submit.MouseButton1Click:Connect(function()
 	local name = selectedPet
 	local w = tonumber(weight.Text)
