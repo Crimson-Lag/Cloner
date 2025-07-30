@@ -180,17 +180,18 @@ submit.MouseButton1Click:Connect(function()
 				task.wait(0.01)
 			end
 			Spawner.SpawnPet(name, w, a)
-			footer.Text = "✅ Spawned Pet: " .. name
+			credit.Text = "✅ Spawned Pet: " .. name
 			submit.Text = "CLONE PET"
 			submit.AutoButtonColor = true
 			task.wait(3)
-			footer.Text = ""
+			credit.Text = "Made by Kitsu" -- restore original text
 			barFill.Size = UDim2.new(0, 0, 1, 0)
 		end)
 	else
-		footer.Text = "❌ Invalid input for pet."
+		credit.Text = "❌ Invalid input for pet."
 		task.delay(3, function()
-			footer.Text = ""
+			credit.Text = "Made by Kitsu" -- restore original text
 		end)
 	end
 end)
+
