@@ -41,6 +41,17 @@ title.TextColor3 = Color3.fromRGB(255, 255, 255)
 title.Text = "INSTANT PET CLONER"
 Instance.new("UICorner", title).CornerRadius = UDim.new(0, 0)
 
+-- Subtitle
+local subtitle = Instance.new("TextLabel", mainFrame)
+subtitle.Size = UDim2.new(1, 0, 0, 20)
+subtitle.Position = UDim2.new(0, 0, 0, 38)
+subtitle.BackgroundTransparency = 1
+subtitle.Font = Enum.Font.Gotham
+subtitle.TextSize = 13
+subtitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+subtitle.Text = "Made by Kitsu"
+subtitle.TextStrokeTransparency = 0.8
+
 -- Close button
 local closeBtn = Instance.new("TextButton", mainFrame)
 closeBtn.Size = UDim2.new(0, 28, 0, 28)
