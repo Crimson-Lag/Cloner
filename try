@@ -19,6 +19,25 @@ local screenGui = Instance.new("ScreenGui", PlayerGui)
 screenGui.Name = GUI_NAME
 screenGui.ResetOnSpawn = false
 
+-- Decorative garden blocks behind the main frame
+local function createBlock(color, size, position, zindex)
+	local block = Instance.new("Frame", screenGui)
+	block.BackgroundColor3 = color
+	block.Size = size
+	block.Position = position
+	block.AnchorPoint = Vector2.new(0.5, 0.5)
+	block.ZIndex = zindex or 0
+	block.BackgroundTransparency = 0
+	Instance.new("UICorner", block).CornerRadius = UDim.new(0, 6)
+	return block
+end
+
+-- Example garden blocks
+createBlock(Color3.fromRGB(90, 60, 30), UDim2.new(0, 60, 0, 60), UDim2.new(0.5, -120, 0.5, -130)) -- dirt
+createBlock(Color3.fromRGB(60, 120, 60), UDim2.new(0, 60, 0, 60), UDim2.new(0.5, 120, 0.5, -130)) -- grass
+createBlock(Color3.fromRGB(80, 100, 80), UDim2.new(0, 60, 0, 60), UDim2.new(0.5, -120, 0.5, 150)) -- stone
+createBlock(Color3.fromRGB(100, 200, 100), UDim2.new(0, 60, 0, 60), UDim2.new(0.5, 120, 0.5, 150)) -- leaf
+
 local mainFrame = Instance.new("Frame", screenGui)
 mainFrame.Size = UDim2.new(0, 300, 0, 240)
 mainFrame.Position = UDim2.new(0.5, -150, 0.5, -150)
