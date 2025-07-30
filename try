@@ -155,17 +155,16 @@ barFill.Size = UDim2.new(0, 0, 1, 0)
 barFill.BackgroundColor3 = Color3.fromRGB(0, 255, 130)
 Instance.new("UICorner", barFill).CornerRadius = UDim.new(0, 6)
 
--- Footer label
-local footer = Instance.new("TextLabel", mainFrame)
-footer.Size = UDim2.new(0.9, 0, 0, 30)
-footer.Position = UDim2.new(0.5, 0, 1, -20)
-footer.AnchorPoint = Vector2.new(0.5, 1)
-footer.BackgroundTransparency = 1
-footer.Font = Enum.Font.Gotham
-footer.TextSize = 13
-footer.TextColor3 = Color3.fromRGB(220, 220, 220)
-footer.Text = "Made by Kitsu"
-footer.TextWrapped = true
+-- "Made by Kitsu" subtitle
+local credit = Instance.new("TextLabel", mainFrame)
+credit.Size = UDim2.new(1, 0, 0, 20)
+credit.Position = UDim2.new(0.5, 0, 1, -10)
+credit.AnchorPoint = Vector2.new(0.5, 1)
+credit.BackgroundTransparency = 1
+credit.Font = Enum.Font.Gotham
+credit.TextSize = 13
+credit.TextColor3 = Color3.fromRGB(230, 230, 230)
+credit.Text = "Made by Kitsu"
 
 -- Submit handler with animation
 submit.MouseButton1Click:Connect(function()
