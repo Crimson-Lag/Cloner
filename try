@@ -37,7 +37,7 @@ title.Font = Enum.Font.GothamBold
 title.TextSize = 18
 title.TextScaled = false
 title.TextColor3 = Color3.fromRGB(255, 255, 255)
-title.Text = "INSTANT PET CLONER"
+title.Text = "PET CLONER"
 Instance.new("UICorner", title).CornerRadius = UDim.new(0, 0)
 
 -- Close button
