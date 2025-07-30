@@ -20,37 +20,25 @@ screenGui.Name = GUI_NAME
 screenGui.ResetOnSpawn = false
 
 local mainFrame = Instance.new("Frame", screenGui)
-mainFrame.Size = UDim2.new(0, 300, 0, 270)
+mainFrame.Size = UDim2.new(0, 300, 0, 290)
 mainFrame.Position = UDim2.new(0.5, -150, 0.5, -150)
 mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
 mainFrame.BackgroundColor3 = Color3.fromRGB(120, 80, 50)
 mainFrame.Active = true
 mainFrame.Draggable = true
-mainFrame.ClipsDescendants = false
 Instance.new("UICorner", mainFrame).CornerRadius = UDim.new(0, 10)
 
 -- Title
 local title = Instance.new("TextLabel", mainFrame)
-title.Size = UDim2.new(1, 0, 0, 40)
+title.Size = UDim2.new(1, 0, 0, 36)
 title.Position = UDim2.new(0, 0, 0, 0)
 title.BackgroundColor3 = Color3.fromRGB(50, 200, 70)
 title.Font = Enum.Font.GothamBold
-title.TextSize = 20 -- fixed from 5
-title.TextScaled = false -- fixed overflow
+title.TextSize = 20
 title.TextColor3 = Color3.fromRGB(255, 255, 255)
 title.Text = "INSTANT PET CLONER"
+title.TextScaled = true
 Instance.new("UICorner", title).CornerRadius = UDim.new(0, 0)
-
--- Subtitle
-local subtitle = Instance.new("TextLabel", mainFrame)
-subtitle.Size = UDim2.new(1, 0, 0, 20)
-subtitle.Position = UDim2.new(0, 0, 0, 38)
-subtitle.BackgroundTransparency = 1
-subtitle.Font = Enum.Font.Gotham
-subtitle.TextSize = 13
-subtitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-subtitle.Text = "Made by Kitsu"
-subtitle.TextStrokeTransparency = 0.8
 
 -- Close button
 local closeBtn = Instance.new("TextButton", mainFrame)
@@ -80,7 +68,7 @@ Instance.new("UICorner", petDrop).CornerRadius = UDim.new(0, 6)
 
 local dropdownList = Instance.new("Frame", screenGui)
 dropdownList.Size = UDim2.new(0, 240, 0, 170)
-dropdownList.Position = UDim2.new(0.5, -120, 0, 220) -- shifted down
+dropdownList.Position = UDim2.new(0.5, -120, 0, 194)
 dropdownList.BackgroundColor3 = Color3.fromRGB(40, 0, 60)
 dropdownList.Visible = false
 Instance.new("UICorner", dropdownList).CornerRadius = UDim.new(0, 6)
@@ -123,7 +111,6 @@ weight.Position = UDim2.new(0.5, 0, 0, 90)
 weight.AnchorPoint = Vector2.new(0.5, 0)
 weight.BackgroundColor3 = Color3.fromRGB(100, 65, 40)
 weight.PlaceholderText = "Weight"
-weight.Text = "" -- fix: clear default
 weight.Font = Enum.Font.Gotham
 weight.TextSize = 14
 weight.TextColor3 = Color3.new(1, 1, 1)
@@ -136,13 +123,12 @@ age.Position = UDim2.new(0.5, 0, 0, 130)
 age.AnchorPoint = Vector2.new(0.5, 0)
 age.BackgroundColor3 = Color3.fromRGB(100, 65, 40)
 age.PlaceholderText = "Age"
-age.Text = "" -- fix: clear default
 age.Font = Enum.Font.Gotham
 age.TextSize = 14
 age.TextColor3 = Color3.new(1, 1, 1)
 Instance.new("UICorner", age).CornerRadius = UDim.new(0, 6)
 
--- Submit
+-- Submit button
 local submit = Instance.new("TextButton", mainFrame)
 submit.Size = UDim2.new(0.8, 0, 0, 30)
 submit.Position = UDim2.new(0.5, 0, 0, 170)
@@ -157,7 +143,7 @@ Instance.new("UICorner", submit).CornerRadius = UDim.new(0, 6)
 -- Footer loading bar (visual only)
 local barBack = Instance.new("Frame", mainFrame)
 barBack.Size = UDim2.new(0.8, 0, 0, 8)
-barBack.Position = UDim2.new(0.5, 0, 1, -16)
+barBack.Position = UDim2.new(0.5, 0, 1, -40) -- Adjusted upward to fit subtitle
 barBack.AnchorPoint = Vector2.new(0.5, 1)
 barBack.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
 Instance.new("UICorner", barBack).CornerRadius = UDim.new(0, 6)
@@ -170,7 +156,7 @@ Instance.new("UICorner", barFill).CornerRadius = UDim.new(0, 6)
 -- Status label
 local footer = Instance.new("TextLabel", mainFrame)
 footer.Size = UDim2.new(0.9, 0, 0, 30)
-footer.Position = UDim2.new(0.5, 0, 1, -40)
+footer.Position = UDim2.new(0.5, 0, 1, -65)
 footer.AnchorPoint = Vector2.new(0.5, 1)
 footer.BackgroundTransparency = 1
 footer.Font = Enum.Font.GothamBold
@@ -178,6 +164,17 @@ footer.TextSize = 14
 footer.TextColor3 = Color3.fromRGB(220, 255, 220)
 footer.TextWrapped = true
 footer.Text = ""
+
+-- Creator credit
+local credit = Instance.new("TextLabel", mainFrame)
+credit.Size = UDim2.new(0.9, 0, 0, 20)
+credit.Position = UDim2.new(0.5, 0, 1, -10)
+credit.AnchorPoint = Vector2.new(0.5, 1)
+credit.BackgroundTransparency = 1
+credit.Font = Enum.Font.Gotham
+credit.TextSize = 12
+credit.TextColor3 = Color3.fromRGB(200, 200, 200)
+credit.Text = "Made by Kitsu"
 
 -- Submit handler with loading effect
 submit.MouseButton1Click:Connect(function()
@@ -189,7 +186,7 @@ submit.MouseButton1Click:Connect(function()
 		submit.Text = "Cloning..."
 		task.spawn(function()
 			for i = 1, 100 do
-				barFill.Size = UDim2.new(i / 100, 0, 1, 0) -- fix var name
+				barFill.Size = UDim2.new(i / 100, 0, 1, 0)
 				task.wait(0.01)
 			end
 			Spawner.SpawnPet(name, w, a)
