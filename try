@@ -44,20 +44,13 @@ grassBar.Size = UDim2.new(1, 0, 0, 10)
 grassBar.Position = UDim2.new(0, 0, 0, 0)
 grassBar.BackgroundColor3 = Color3.fromRGB(93, 188, 63)
 
--- Title Label (GARDEN style)
-local title = Instance.new("TextLabel", mainFrame)
-title.Size = UDim2.new(1, 0, 0, 60)
-title.Position = UDim2.new(0.5, 0, 0, 12)
-title.AnchorPoint = Vector2.new(0.5, 0)
-title.BackgroundTransparency = 1
-title.Font = Enum.Font.FredokaOne
-if not pcall(function() title.Font = Enum.Font.FredokaOne end) then title.Font = Enum.Font.GothamBlack end
-title.TextSize = 48
-title.TextColor3 = Color3.new(1, 1, 1)
-title.TextStrokeTransparency = 0
-title.TextStrokeColor3 = Color3.new(0, 0, 0)
-title.Text = "GARDEN"
-title.TextWrapped = true
+-- Logo Image (replaces GARDEN title)
+local logoImage = Instance.new("ImageLabel", mainFrame)
+logoImage.Size = UDim2.new(0, 263, 0, 70)
+logoImage.Position = UDim2.new(0.5, 0, 0, 12)
+logoImage.AnchorPoint = Vector2.new(0.5, 0)
+logoImage.BackgroundTransparency = 1
+logoImage.Image = "rbxassetid://17183268541" -- Replace with your uploaded GARDEN image asset ID
 
 -- Loading Bar Background
 local loadingBarBackground = Instance.new("Frame", mainFrame)
