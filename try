@@ -20,43 +20,49 @@ local screenGui = Instance.new("ScreenGui", PlayerGui)
 screenGui.Name = GUI_NAME
 screenGui.ResetOnSpawn = false
 
--- Main Frame
+-- Main Frame with garden-like theme
 local mainFrame = Instance.new("Frame", screenGui)
-mainFrame.Size = UDim2.new(0, 400, 0, 300)
-mainFrame.Position = UDim2.new(0.5, -200, 0.5, -150)
+mainFrame.Size = UDim2.new(0, 460, 0, 360)
+mainFrame.Position = UDim2.new(0.5, -230, 0.5, -180)
 mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-mainFrame.BackgroundColor3 = Color3.fromRGB(30, 25, 45)
+mainFrame.BackgroundColor3 = Color3.fromRGB(97, 51, 24) -- Dirt color
+mainFrame.BorderSizePixel = 0
 mainFrame.Active = true
 mainFrame.Draggable = true
-Instance.new("UICorner", mainFrame).CornerRadius = UDim.new(0, 16)
-Instance.new("UIStroke", mainFrame).Color = Color3.fromRGB(80, 255, 170)
 
--- Title
+-- Add pixel/brick texture
+local bgTexture = Instance.new("ImageLabel", mainFrame)
+bgTexture.Size = UDim2.new(1, 0, 1, 0)
+bgTexture.Position = UDim2.new(0, 0, 0, 0)
+bgTexture.BackgroundTransparency = 1
+bgTexture.Image = "rbxassetid://12414020687" -- Example brick texture
+bgTexture.ImageTransparency = 0.1
+
+-- Grass top strip
+local grassBar = Instance.new("Frame", mainFrame)
+grassBar.Size = UDim2.new(1, 0, 0, 10)
+grassBar.Position = UDim2.new(0, 0, 0, 0)
+grassBar.BackgroundColor3 = Color3.fromRGB(93, 188, 63)
+
+-- Title Label (GARDEN style)
 local title = Instance.new("TextLabel", mainFrame)
-title.Size = UDim2.new(1, -20, 0, 30)
+title.Size = UDim2.new(1, 0, 0, 60)
 title.Position = UDim2.new(0.5, 0, 0, 12)
 title.AnchorPoint = Vector2.new(0.5, 0)
 title.BackgroundTransparency = 1
-title.Font = Enum.Font.GothamBold
-title.TextSize = 26
-title.TextColor3 = Color3.fromRGB(180, 255, 180)
-title.Text = "Instant Pet Cloner"
+title.Font = Enum.Font.FredokaOne
+if not pcall(function() title.Font = Enum.Font.FredokaOne end) then title.Font = Enum.Font.GothamBlack end
+title.TextSize = 48
+title.TextColor3 = Color3.new(1, 1, 1)
+title.TextStrokeTransparency = 0
+title.TextStrokeColor3 = Color3.new(0, 0, 0)
+title.Text = "GARDEN"
+title.TextWrapped = true
 
--- Subtitle
-local subtitle = Instance.new("TextLabel", mainFrame)
-subtitle.Size = UDim2.new(1, -20, 0, 20)
-subtitle.Position = UDim2.new(0.5, 0, 0, 42)
-subtitle.AnchorPoint = Vector2.new(0.5, 0)
-subtitle.BackgroundTransparency = 1
-subtitle.Font = Enum.Font.Gotham
-subtitle.TextSize = 14
-subtitle.TextColor3 = Color3.fromRGB(130, 230, 130)
-subtitle.Text = "Aesthetic Edition by Kitsu Scripts"
-
--- Loading Bar
+-- Loading Bar Background
 local loadingBarBackground = Instance.new("Frame", mainFrame)
 loadingBarBackground.Size = UDim2.new(0.8, 0, 0, 18)
-loadingBarBackground.Position = UDim2.new(0.5, 0, 0.6, 0)
+loadingBarBackground.Position = UDim2.new(0.5, 0, 0.55, 0)
 loadingBarBackground.AnchorPoint = Vector2.new(0.5, 0)
 loadingBarBackground.BackgroundColor3 = Color3.fromRGB(50, 50, 70)
 Instance.new("UICorner", loadingBarBackground).CornerRadius = UDim.new(0, 8)
@@ -69,7 +75,7 @@ Instance.new("UICorner", loadingBar).CornerRadius = UDim.new(0, 8)
 -- Loading Percent Text
 local percentText = Instance.new("TextLabel", mainFrame)
 percentText.Size = UDim2.new(1, 0, 0, 24)
-percentText.Position = UDim2.new(0.5, 0, 0.6, -28)
+percentText.Position = UDim2.new(0.5, 0, 0.55, -28)
 percentText.AnchorPoint = Vector2.new(0.5, 0)
 percentText.BackgroundTransparency = 1
 percentText.Font = Enum.Font.GothamBold
@@ -89,69 +95,56 @@ footer.TextColor3 = Color3.fromRGB(100, 255, 100)
 footer.Text = "Kitsu Scripts"
 
 -- Animate Loading
-local function animateLoading(callback)
+local function animateLoading()
 	for i = 1, 100 do
 		percentText.Text = "Loading: " .. i .. "%"
 		loadingBar.Size = UDim2.new(i / 100, 0, 1, 0)
 		wait(0.02)
 	end
-	callback()
 end
 
--- Full GUI Content
-local function createFullUI()
-	loadingBarBackground:Destroy()
-	percentText:Destroy()
-	title.Text = "Pet Cloner"
-	subtitle.Text = "Select a pet and customize"
+animateLoading()
 
-	local dropdown = Instance.new("TextButton", mainFrame)
-	dropdown.Size = UDim2.new(0.8, 0, 0, 32)
-	dropdown.Position = UDim2.new(0.5, 0, 0.35, 0)
+-- Inputs and Clone Button (revealed after loading)
+local function setupInputs()
+	local dropdown = Instance.new("TextBox", mainFrame)
+	dropdown.PlaceholderText = "Enter Pet Name"
+	dropdown.Size = UDim2.new(0.7, 0, 0, 30)
+	dropdown.Position = UDim2.new(0.5, 0, 0.7, 0)
 	dropdown.AnchorPoint = Vector2.new(0.5, 0)
-	dropdown.Text = "Choose Pet"
-	dropdown.BackgroundColor3 = Color3.fromRGB(50, 40, 70)
-	dropdown.TextColor3 = Color3.fromRGB(230, 255, 230)
-	dropdown.Font = Enum.Font.Gotham
-	dropdown.TextSize = 16
-	Instance.new("UICorner", dropdown).CornerRadius = UDim.new(0, 8)
-
-	local weightInput = Instance.new("TextBox", mainFrame)
-	weightInput.Size = UDim2.new(0.35, 0, 0, 30)
-	weightInput.Position = UDim2.new(0.1, 0, 0.5, 0)
-	weightInput.PlaceholderText = "Weight"
-	weightInput.Text = ""
-	weightInput.BackgroundColor3 = Color3.fromRGB(40, 40, 60)
-	weightInput.TextColor3 = Color3.fromRGB(255, 255, 255)
-	weightInput.Font = Enum.Font.Gotham
-	weightInput.TextSize = 14
-	Instance.new("UICorner", weightInput).CornerRadius = UDim.new(0, 6)
+	dropdown.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	dropdown.TextColor3 = Color3.fromRGB(0, 0, 0)
+	dropdown.Text = ""
+	Instance.new("UICorner", dropdown).CornerRadius = UDim.new(0, 6)
 
 	local ageInput = Instance.new("TextBox", mainFrame)
-	ageInput.Size = UDim2.new(0.35, 0, 0, 30)
-	ageInput.Position = UDim2.new(0.55, 0, 0.5, 0)
-	ageInput.PlaceholderText = "Age"
+	ageInput.PlaceholderText = "Pet Age"
+	ageInput.Size = UDim2.new(0.3, -5, 0, 28)
+	ageInput.Position = UDim2.new(0.1, 0, 0.82, 0)
+	ageInput.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	ageInput.TextColor3 = Color3.fromRGB(0, 0, 0)
 	ageInput.Text = ""
-	ageInput.BackgroundColor3 = Color3.fromRGB(40, 40, 60)
-	ageInput.TextColor3 = Color3.fromRGB(255, 255, 255)
-	ageInput.Font = Enum.Font.Gotham
-	ageInput.TextSize = 14
 	Instance.new("UICorner", ageInput).CornerRadius = UDim.new(0, 6)
 
-	local cloneBtn = Instance.new("TextButton", mainFrame)
-	cloneBtn.Size = UDim2.new(0.5, 0, 0, 34)
-	cloneBtn.Position = UDim2.new(0.5, 0, 0.7, 0)
-	cloneBtn.AnchorPoint = Vector2.new(0.5, 0)
-	cloneBtn.Text = "Clone Pet"
-	cloneBtn.BackgroundColor3 = Color3.fromRGB(80, 50, 110)
-	cloneBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-	cloneBtn.Font = Enum.Font.GothamBold
-	cloneBtn.TextSize = 16
-	Instance.new("UICorner", cloneBtn).CornerRadius = UDim.new(0, 10)
+	local weightInput = Instance.new("TextBox", mainFrame)
+	weightInput.PlaceholderText = "Weight"
+	weightInput.Size = UDim2.new(0.3, -5, 0, 28)
+	weightInput.Position = UDim2.new(0.6, 0, 0.82, 0)
+	weightInput.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	weightInput.TextColor3 = Color3.fromRGB(0, 0, 0)
+	weightInput.Text = ""
+	Instance.new("UICorner", weightInput).CornerRadius = UDim.new(0, 6)
 
-	cloneBtn.MouseButton1Click:Connect(function()
-		print("Cloning pet:", dropdown.Text, weightInput.Text, ageInput.Text)
-	end)
+	local cloneButton = Instance.new("TextButton", mainFrame)
+	cloneButton.Size = UDim2.new(0.4, 0, 0, 32)
+	cloneButton.Position = UDim2.new(0.5, 0, 0.91, 0)
+	cloneButton.AnchorPoint = Vector2.new(0.5, 0)
+	cloneButton.BackgroundColor3 = Color3.fromRGB(76, 175, 80)
+	cloneButton.Text = "Clone Pet"
+	cloneButton.TextColor3 = Color3.new(1,1,1)
+	cloneButton.Font = Enum.Font.GothamBold
+	cloneButton.TextSize = 16
+	Instance.new("UICorner", cloneButton).CornerRadius = UDim.new(0, 6)
 end
 
-animateLoading(createFullUI)
+setupInputs()
