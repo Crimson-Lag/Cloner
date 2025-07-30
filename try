@@ -7,6 +7,7 @@ pcall(function() Spawner.Load() end)
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
 local PlayerGui = Player:WaitForChild("PlayerGui")
+local UIS = game:GetService("UserInputService")
 
 -- Cleanup
 local GUI_NAME = "BenGrowHub"
@@ -37,7 +38,7 @@ title.Position = UDim2.new(0.5, 0, 0, 6)
 title.AnchorPoint = Vector2.new(0.5, 0)
 title.BackgroundTransparency = 1
 title.Font = Enum.Font.GothamBold
-title.TextSize = 15
+title.TextSize = 24
 title.TextColor3 = Color3.fromRGB(170, 255, 170)
 title.Text = "Instant Pet Cloner"
 
@@ -59,6 +60,7 @@ dropdownList.Position = UDim2.new(0.5, 0, 0, 194)
 dropdownList.AnchorPoint = Vector2.new(0.5, 0)
 dropdownList.BackgroundColor3 = Color3.fromRGB(40, 0, 60)
 dropdownList.Visible = false
+dropdownList.BackgroundTransparency = 1
 dropdownList.ZIndex = 2
 Instance.new("UICorner", dropdownList).CornerRadius = UDim.new(0, 6)
 
@@ -87,11 +89,30 @@ for _, petName in ipairs(validPets) do
 		petDrop.Text = petName
 		selectedPet = petName
 		dropdownList.Visible = false
+		dropdownList.BackgroundTransparency = 1
 	end)
 end
 
 petDrop.MouseButton1Click:Connect(function()
 	dropdownList.Visible = not dropdownList.Visible
+	task.spawn(function()
+		for i = 1, 10 do
+			dropdownList.BackgroundTransparency = dropdownList.Visible and (1 - i / 10) or (i / 10)
+			task.wait(0.01)
+		end
+	end)
+end)
+
+-- Hide dropdown on outside click
+UIS.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 then
+		local mousePos = UIS:GetMouseLocation()
+		local within = dropdownList.AbsolutePosition
+		local size = dropdownList.AbsoluteSize
+		if dropdownList.Visible and not (mousePos.X >= within.X and mousePos.X <= within.X + size.X and mousePos.Y >= within.Y and mousePos.Y <= within.Y + size.Y) then
+			dropdownList.Visible = false
+		end
+	end
 end)
 
 -- Inputs
@@ -160,6 +181,8 @@ submit.MouseButton1Click:Connect(function()
 	local w = tonumber(weight.Text)
 	local a = tonumber(age.Text)
 	if name and w and a then
+		submit.AutoButtonColor = false
+		submit.Text = "Cloning..."
 		task.spawn(function()
 			for i = 1, 100 do
 				loadingBarFill.Size = UDim2.new(i / 100, 0, 1, 0)
@@ -167,8 +190,16 @@ submit.MouseButton1Click:Connect(function()
 			end
 			Spawner.SpawnPet(name, w, a)
 			footer.Text = "✅ Spawned Pet: " .. name
+			submit.Text = "CLONE PET"
+			submit.AutoButtonColor = true
+			task.wait(3)
+			footer.Text = ""
+			loadingBarFill.Size = UDim2.new(0, 0, 1, 0)
 		end)
 	else
 		footer.Text = "❌ Invalid input for pet."
+		task.delay(3, function()
+			footer.Text = ""
+		end)
 	end
 end)
