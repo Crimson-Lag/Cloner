@@ -167,25 +167,31 @@ footer.TextColor3 = Color3.fromRGB(220, 220, 220)
 footer.Text = "Made by Kitsu"
 footer.TextWrapped = true
 
--- Submit handler
+-- Submit handler with animation
 submit.MouseButton1Click:Connect(function()
 	local name = selectedPet
 	local w = tonumber(weight.Text)
 	local a = tonumber(age.Text)
 	if name and w and a then
-		Spawner.SpawnPet(name, w, a)
-		footer.Text = "✅ Spawned Pet: " .. name
-
-		-- Animate loading bar over 5 seconds
-		barFill:TweenSize(UDim2.new(1, 0, 1, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 5, true)
-		task.delay(5, function()
+		submit.AutoButtonColor = false
+		submit.Text = "Cloning..."
+		task.spawn(function()
+			for i = 1, 100 do
+				barFill.Size = UDim2.new(i / 100, 0, 1, 0)
+				task.wait(0.01)
+			end
+			Spawner.SpawnPet(name, w, a)
+			footer.Text = "✅ Spawned Pet: " .. name
+			submit.Text = "CLONE PET"
+			submit.AutoButtonColor = true
+			task.wait(3)
+			footer.Text = ""
 			barFill.Size = UDim2.new(0, 0, 1, 0)
-			footer.Text = "Made by Kitsu"
 		end)
 	else
 		footer.Text = "❌ Invalid input for pet."
 		task.delay(3, function()
-			footer.Text = "Made by Kitsu"
+			footer.Text = ""
 		end)
 	end
 end)
