@@ -28,16 +28,16 @@ mainFrame.Active = true
 mainFrame.Draggable = true
 Instance.new("UICorner", mainFrame).CornerRadius = UDim.new(0, 10)
 
--- Title
+--- Title
 local title = Instance.new("TextLabel", mainFrame)
-title.Size = UDim2.new(1, 0, 0, 36)
+title.Size = UDim2.new(1, 0, 0, 40)
 title.Position = UDim2.new(0, 0, 0, 0)
 title.BackgroundColor3 = Color3.fromRGB(50, 200, 70)
 title.Font = Enum.Font.GothamBold
-title.TextSize = 20
+title.TextSize = 20 -- fixed from 5
+title.TextScaled = false -- fixed overflow
 title.TextColor3 = Color3.fromRGB(255, 255, 255)
 title.Text = "INSTANT PET CLONER"
-title.TextScaled = true
 Instance.new("UICorner", title).CornerRadius = UDim.new(0, 0)
 
 -- Close button
@@ -68,7 +68,7 @@ Instance.new("UICorner", petDrop).CornerRadius = UDim.new(0, 6)
 
 local dropdownList = Instance.new("Frame", screenGui)
 dropdownList.Size = UDim2.new(0, 240, 0, 170)
-dropdownList.Position = UDim2.new(0.5, -120, 0, 194)
+dropdownList.Position = UDim2.new(0.5, -120, 0, 220) -- shifted down
 dropdownList.BackgroundColor3 = Color3.fromRGB(40, 0, 60)
 dropdownList.Visible = false
 Instance.new("UICorner", dropdownList).CornerRadius = UDim.new(0, 6)
@@ -111,6 +111,7 @@ weight.Position = UDim2.new(0.5, 0, 0, 90)
 weight.AnchorPoint = Vector2.new(0.5, 0)
 weight.BackgroundColor3 = Color3.fromRGB(100, 65, 40)
 weight.PlaceholderText = "Weight"
+weight.Text = "" -- fix: clear default
 weight.Font = Enum.Font.Gotham
 weight.TextSize = 14
 weight.TextColor3 = Color3.new(1, 1, 1)
@@ -123,12 +124,13 @@ age.Position = UDim2.new(0.5, 0, 0, 130)
 age.AnchorPoint = Vector2.new(0.5, 0)
 age.BackgroundColor3 = Color3.fromRGB(100, 65, 40)
 age.PlaceholderText = "Age"
+age.Text = "" -- fix: clear default
 age.Font = Enum.Font.Gotham
 age.TextSize = 14
 age.TextColor3 = Color3.new(1, 1, 1)
 Instance.new("UICorner", age).CornerRadius = UDim.new(0, 6)
 
--- Submit button
+-- Submit
 local submit = Instance.new("TextButton", mainFrame)
 submit.Size = UDim2.new(0.8, 0, 0, 30)
 submit.Position = UDim2.new(0.5, 0, 0, 170)
@@ -143,7 +145,7 @@ Instance.new("UICorner", submit).CornerRadius = UDim.new(0, 6)
 -- Footer loading bar (visual only)
 local barBack = Instance.new("Frame", mainFrame)
 barBack.Size = UDim2.new(0.8, 0, 0, 8)
-barBack.Position = UDim2.new(0.5, 0, 1, -40) -- Adjusted upward to fit subtitle
+barBack.Position = UDim2.new(0.5, 0, 1, -16)
 barBack.AnchorPoint = Vector2.new(0.5, 1)
 barBack.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
 Instance.new("UICorner", barBack).CornerRadius = UDim.new(0, 6)
@@ -156,7 +158,7 @@ Instance.new("UICorner", barFill).CornerRadius = UDim.new(0, 6)
 -- Status label
 local footer = Instance.new("TextLabel", mainFrame)
 footer.Size = UDim2.new(0.9, 0, 0, 30)
-footer.Position = UDim2.new(0.5, 0, 1, -65)
+footer.Position = UDim2.new(0.5, 0, 1, -40)
 footer.AnchorPoint = Vector2.new(0.5, 1)
 footer.BackgroundTransparency = 1
 footer.Font = Enum.Font.GothamBold
