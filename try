@@ -35,10 +35,10 @@ title.Size = UDim2.new(1, 0, 0, 40)
 title.Position = UDim2.new(0, 0, 0, 0)
 title.BackgroundColor3 = Color3.fromRGB(50, 200, 70)
 title.Font = Enum.Font.GothamBold
-title.TextSize = 5
+title.TextSize = 18  -- Smaller size
 title.TextColor3 = Color3.fromRGB(255, 255, 255)
 title.Text = "INSTANT PET CLONER"
-title.TextScaled = true
+title.TextScaled = false -- Disabled scaling to use TextSize
 Instance.new("UICorner", title).CornerRadius = UDim.new(0, 0)
 
 -- Close button
