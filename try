@@ -50,7 +50,7 @@ subtitle.BackgroundTransparency = 1
 subtitle.Font = Enum.Font.Gotham
 subtitle.TextSize = 14
 subtitle.TextColor3 = Color3.fromRGB(200, 255, 200)
-subtitle.Text = "Made by BenGrowHub"
+subtitle.Text = "Made by Kitsu"
 
 -- Start button
 local startButton = Instance.new("TextButton", mainFrame)
@@ -222,7 +222,7 @@ startButton.MouseButton1Click:Connect(function()
 	loadingBarBack.Visible = true
 	loadingPercent.Visible = true
 
-	local duration = 150
+	local duration = 20
 	local step = duration / 100
 
 	task.spawn(function()
